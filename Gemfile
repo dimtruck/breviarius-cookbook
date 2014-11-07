@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+gem 'berkshelf', '> 3'
+
+gem 'chef'
+gem 'rake'
+gem 'rubocop'
+gem 'foodcritic'
+gem 'chefspec'
+gem 'test-kitchen'
+gem 'kitchen-vagrant'
+gem 'guard', '>= 2.6'
+gem 'guard-rubocop', '>= 1.1'
+gem 'guard-foodcritic', '>= 1.0.2'
+gem 'knife-rackspace'
+gem 'fog'
+gem 'chef-sugar'
