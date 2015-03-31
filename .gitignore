@@ -1,2 +1,13 @@
-.kitchen
-.chef
+#.kitchen
+#.chef
+#.kitchen/
+#.kitchen.local.yml
+
+knife.rb
+openrc
+encrypted_data_bag_secret
+encrypted_data_bag_secret_key
+*.log
+cookbooks/jenkins/test/.chef
+cookbooks/jenkins/.kitchen/kitchen-vagrant/
+.kitchen/logs

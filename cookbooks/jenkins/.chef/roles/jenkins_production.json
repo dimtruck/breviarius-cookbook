@@ -1,0 +1,13 @@
+{
+  "chef_type": "role",
+  "default_attributes": {},
+  "description": "role to install jenkins",
+  "env_run_lists": {},
+  "json_class": "Chef::Role",
+  "name": "jenkins_production",
+  "override_attributes": {},
+  "run_list": [
+    "recipe[apt::default]",
+    "recipe[breviarius-jenkins::default]"
+  ]
+}

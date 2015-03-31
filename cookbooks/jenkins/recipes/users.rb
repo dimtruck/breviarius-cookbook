@@ -2,18 +2,19 @@ include_recipe 'sudo::default'
 include_recipe 'users::default'
 
 node['security']['create_groups'].each do |gid, name|
+  log "user: #{name} and id: #{gid}"
   users_manage name do
     group_id gid.to_i
     action [:create]
   end
-end
+end if node['security']['create_groups']
 
 node['security']['delete_groups'].each do |gid, name|
   users_manage name do
     group_id gid.to_i
     action [:remove]
   end
-end
+end if node['security']['delete_groups']
 
 # set node['authorization']['sudo']['include_sudoers_d'] = true in
 # your environment to include these.
@@ -24,7 +25,7 @@ node['security']['create_sudo'].each do |name|
     nopasswd true
     action [:install]
   end
-end
+end if node['security']['create_sudo']
 
 node['security']['delete_sudo'].each do |name|
   sudo name do
@@ -32,7 +33,7 @@ node['security']['delete_sudo'].each do |name|
     nopasswd true
     action [:remove]
   end
-end
+end if node['security']['delete_sudo']
 
 directory "/home/jenkins/.ssh" do
   owner 'jenkins'
@@ -46,6 +47,8 @@ template "/home/jenkins/.ssh/config" do
   group 'jenkins'
   mode '0600'
 end
+
+log "Databag encrypted: #{node[:databag_encrypted]}"
 
 if node[:databag_encrypted]
   jenkins_keys = encrypted_data_bag_item('jenkins', 'users')
