@@ -9,5 +9,6 @@ encrypted_data_bag_secret
 encrypted_data_bag_secret_key
 *.log
 cookbooks/jenkins/test/.chef
+cookbooks/jenkins/.chef
 cookbooks/jenkins/.kitchen/kitchen-vagrant/
 .kitchen/logs

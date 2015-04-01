@@ -1,0 +1,32 @@
+% if extendedMailer:
+<hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+  <recipientList>${extendedMailer['recipientList']}</recipientList>
+  <configuredTriggers>
+    <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      <email>
+        <recipientList></recipientList>
+        <subject>${extendedMailer['subject']}</subject>
+        <body>${extendedMailer['body']}</body>
+        <recipientProviders>
+          <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+        </recipientProviders>
+        <attachmentsPattern></attachmentsPattern>
+        <attachBuildLog>true</attachBuildLog>
+        <compressBuildLog>true</compressBuildLog>
+        <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+        <contentType>project</contentType>
+      </email>
+    </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+  </configuredTriggers>
+  <contentType>default</contentType>
+  <defaultSubject>${extendedMailer['defaultSubject']}</defaultSubject>
+  <defaultContent>${extendedMailer['defaultContent']}</defaultContent>
+  <attachmentsPattern></attachmentsPattern>
+  <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+  <attachBuildLog>true</attachBuildLog>
+  <compressBuildLog>true</compressBuildLog>
+  <replyTo>$DEFAULT_REPLYTO</replyTo>
+  <saveOutput>false</saveOutput>
+  <disabled>true</disabled>
+</hudson.plugins.emailext.ExtendedEmailPublisher>
+% endif

@@ -71,6 +71,27 @@ Create secret key:
 openssl rand -base64 512 | tr -d '\r\n' > encrypted_data_bag_secret
 ```
 
+Create users.json file and add it to jenkins data bag
+
+```
+knife data bag create jenkins
+knife data bag from jenkins users.json  --secret-file ~/.chef/CHEF_USERNAME/encrypted_data_bag_secret
+```
+
+Create bot json file and add it to github_accounts
+
+```
+knife data bag create github_accounts
+knife data bag from file github_accounts bot.json  --secret-file ~/.chef/CHEF_USERNAME/encrypted_data_bag_secret 
+```
+
+Create users data bag and add all users that you need to it
+
+```
+knife data bag create users
+knife data bag from file users my_user.json 
+knife data bag from file users jenkins.json 
+```
 
 Create new Jenkins master:
 =========================
