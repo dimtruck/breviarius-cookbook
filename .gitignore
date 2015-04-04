@@ -4,6 +4,7 @@
 #.kitchen.local.yml
 
 knife.rb
+cookbooks/jenkins/.chef/environments/jenkins_production.json
 openrc
 encrypted_data_bag_secret
 encrypted_data_bag_secret_key
