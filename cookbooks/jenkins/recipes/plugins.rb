@@ -48,8 +48,8 @@ end
 jenkins_plugin 'build-flow-plugin' do
   notifies :restart, 'service[jenkins]', :delayed
 end
-jenkins_plugin 'rebuilder' do
-  version '1.2.2'
+jenkins_plugin 'rebuild' do
+  version '1.22'
   notifies :restart, 'service[jenkins]', :delayed
 end
 jenkins_plugin 'ruby-runtime' do

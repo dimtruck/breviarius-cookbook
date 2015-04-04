@@ -14,7 +14,7 @@ end
 
 %w(
   jenkins apt sudo firewall users openssh
-  docker runit git
+  docker runit git python
   chef-sugar auto-update build-essential
 ).each do |dep|
   depends dep
