@@ -28,17 +28,17 @@ triggers:
     whitelist: dimtruck
 dsl: |
      <%text>
-     unit_tests = build(&quot;breviarius_frontend_unit_tests&quot;, BranchName: "trunk", url: url)
+     unit_tests = build(&quot;breviarius_frontend_unit_tests&quot;, BranchName: "trunk", url: params.get("url"))
      parallel ([
-       frontend_functional_tests:  { build(&quot;breviarius_frontend_func_tests&quot;, BranchName: "trunk", url: url) },
-       frontend_performance_tests:  { build(&quot;breviarius_frontend_performance_tests&quot;, BranchName: "trunk", url: url) }
+       frontend_functional_tests:  { build(&quot;breviarius_frontend_func_tests&quot;, BranchName: "trunk", url: params.get("url")) },
+       frontend_performance_tests:  { build(&quot;breviarius_frontend_performance_tests&quot;, BranchName: "trunk", url: params.get("url")) }
      ])
      parallel (
-       { build(&quot;breviarius_frontend_snapshot_deployer&quot;, BranchName: "trunk", url: url) },
-       { build(&quot;breviarius_frontend_sonar&quot;, BranchName: "trunk", url: url) }
+       { build(&quot;breviarius_frontend_snapshot_deployer&quot;, BranchName: "trunk", url: params.get("url")) },
+       { build(&quot;breviarius_frontend_sonar&quot;, BranchName: "trunk", url: params.get("url")) }
      )
      parallel (
-       { build(&quot;breviarius_frontend_test_deployer&quot;, BranchName: "trunk", url: url) },
-       { build(&quot;breviarius_frontend_dev_deployer&quot;, BranchName: "trunk", url: url) }
+       { build(&quot;breviarius_frontend_test_deployer&quot;, BranchName: "trunk", url: params.get("url")) },
+       { build(&quot;breviarius_frontend_dev_deployer&quot;, BranchName: "trunk", url: params.get("url")) }
      )
      </%text>
