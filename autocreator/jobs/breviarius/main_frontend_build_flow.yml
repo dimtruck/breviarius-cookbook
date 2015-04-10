@@ -5,8 +5,13 @@ job_description: Orchestrates the entire process of creating a snapshot artifact
 artifactNumToKeep: 10
 numOfJobsToKeep: 10
 daysToKeep: 10
+buildParams:
+  - paramName: url
+    paramValue: "ssh://git@23.253.70.63/dimtruck/breviarius_frontend.git"
+    paramDesc:  ""
+    paramType: string
 scm:
-  gitURL: "ssh://git@github.com/dimtruck/breviarius_frontend.git"
+  gitURL: "<%text>${url}</%text>"
   gitBranch: "trunk"
   credentialsId: "9c2111e0-aca4-492a-a0c9-16c8e153ce7c"
   extensions: 
@@ -23,17 +28,17 @@ triggers:
     whitelist: dimtruck
 dsl: |
      <%text>
-     unit_tests = build(&quot;breviarius_frontend_unit_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git")
+     unit_tests = build(&quot;breviarius_frontend_unit_tests&quot;, BranchName: "trunk", url: url)
      parallel ([
-       frontend_functional_tests:  { build(&quot;breviarius_frontend_func_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
-       frontend_performance_tests:  { build(&quot;breviarius_frontend_performance_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+       frontend_functional_tests:  { build(&quot;breviarius_frontend_func_tests&quot;, BranchName: "trunk", url: url) },
+       frontend_performance_tests:  { build(&quot;breviarius_frontend_performance_tests&quot;, BranchName: "trunk", url: url) }
      ])
      parallel (
-       { build(&quot;breviarius_frontend_snapshot_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
-       { build(&quot;breviarius_frontend_sonar&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+       { build(&quot;breviarius_frontend_snapshot_deployer&quot;, BranchName: "trunk", url: url) },
+       { build(&quot;breviarius_frontend_sonar&quot;, BranchName: "trunk", url: url) }
      )
      parallel (
-       { build(&quot;breviarius_frontend_test_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
-       { build(&quot;breviarius_frontend_dev_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+       { build(&quot;breviarius_frontend_test_deployer&quot;, BranchName: "trunk", url: url) },
+       { build(&quot;breviarius_frontend_dev_deployer&quot;, BranchName: "trunk", url: url) }
      )
      </%text>
