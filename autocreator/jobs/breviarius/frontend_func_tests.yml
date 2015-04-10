@@ -1,0 +1,36 @@
+<%include file="trigger_defaults.yml"/>
+<%include file="default.yml"/>
+
+job_description: Functional tests and code analysis
+numOfJobsToKeep: 10
+daysToKeep: 7
+buildParams:
+  - paramName: url
+    paramValue: ""
+    paramDesc:  ""
+    paramType: string
+  - paramName: BranchName
+    paramValue: ""
+    paramDesc:  "Temporary branch name in internal repository"
+    paramType: string
+scm:
+  gitURL: "<%text>${url}</%text>"
+  gitBranch: "<%text>${BranchName}</%text>"
+  credentialsId: "9c2111e0-aca4-492a-a0c9-16c8e153ce7c"
+  extensions: 
+    cleanbeforecheckout: True
+blockOnUpstream: True    
+shell_build_command: 
+  - build: |
+           <%text>#!/bin/bash
+           rm -r frontend_func_tests
+           cp -r ~/docker/frontend_func_tests .
+           cd frontend_func_tests
+
+           docker build -no-cache -t frontend-func-tests .
+           docker run frontend-func-tests npm functional_test
+           </%text>
+junitArchiver:
+  testResults: "**/results.xml"
+  keepLongStdio: False
+  healthScaleFactor: "1.0"

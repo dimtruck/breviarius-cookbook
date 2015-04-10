@@ -1,0 +1,32 @@
+<%include file="trigger_defaults.yml"/>
+<%include file="default.yml"/>
+
+job_description: Unit tests and code analysis
+numOfJobsToKeep: 10
+daysToKeep: 7
+buildParams:
+  - paramName: url
+    paramValue: ""
+    paramDesc:  ""
+    paramType: string
+  - paramName: BranchName
+    paramValue: ""
+    paramDesc:  "Temporary branch name in internal repository"
+    paramType: string
+scm:
+  gitURL: "<%text>${url}</%text>"
+  gitBranch: "<%text>${BranchName}</%text>"
+  credentialsId: "9c2111e0-aca4-492a-a0c9-16c8e153ce7c"
+  extensions: 
+    cleanbeforecheckout: True
+blockOnUpstream: True    
+shell_build_command: 
+  - build: |
+           <%text>#!/bin/bash
+           source ~/.profile
+           npm unit_test
+           </%text>
+junitArchiver:
+  testResults: "**/results.xml"
+  keepLongStdio: False
+  healthScaleFactor: "1.0"

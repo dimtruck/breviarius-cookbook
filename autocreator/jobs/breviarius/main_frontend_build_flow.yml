@@ -1,0 +1,39 @@
+<%include file="trigger_defaults.yml"/>
+<%include file="default.yml"/>
+
+job_description: Orchestrates the entire process of creating a snapshot artifact and deploying to lower environments.
+artifactNumToKeep: 10
+numOfJobsToKeep: 10
+daysToKeep: 10
+scm:
+  gitURL: "ssh://git@github.com/dimtruck/breviarius_frontend.git"
+  gitBranch: "trunk"
+  credentialsId: "9c2111e0-aca4-492a-a0c9-16c8e153ce7c"
+  extensions: 
+    cleanbeforecheckout: True
+triggers: 
+  timer: "@midnight"
+  github_pr:
+    spec: "H/5 * * * *"
+    adminlist: "dimtruck"
+    orglist: rackerlabs
+    cron: "H/5 * * * *"
+    triggerPhrase: recheck
+    useGitHubHooks: True
+    whitelist: dimtruck
+dsl: |
+     <%text>
+     unit_tests = build(&quot;breviarius_frontend_unit_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git")
+     parallel ([
+       frontend_functional_tests:  { build(&quot;breviarius_frontend_func_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
+       frontend_performance_tests:  { build(&quot;breviarius_frontend_performance_tests&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+     ])
+     parallel (
+       { build(&quot;breviarius_frontend_snapshot_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
+       { build(&quot;breviarius_frontend_sonar&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+     )
+     parallel (
+       { build(&quot;breviarius_frontend_test_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") },
+       { build(&quot;breviarius_frontend_dev_deployer&quot;, BranchName: "trunk", url: "ssh://git@github.com/dimtruck/breviarius_frontend.git") }
+     )
+     </%text>
