@@ -24,7 +24,7 @@ shell_build_command:
   - build: |
            <%text>#!/bin/bash
            source ~/.profile
-           npm unit_test
+           npm test
            </%text>
 junitArchiver:
   testResults: "**/results.xml"

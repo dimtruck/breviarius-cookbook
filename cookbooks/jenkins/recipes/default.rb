@@ -9,5 +9,6 @@ include_recipe 'jenkins::master'
 include_recipe 'breviarius-jenkins::jobs'
 include_recipe 'breviarius-jenkins::plugins'
 include_recipe 'breviarius-jenkins::slaves'
+include_recipe 'nodejs::default'
 
 # TODO update config.xml with authentication
