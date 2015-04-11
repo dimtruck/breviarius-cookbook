@@ -132,4 +132,7 @@ end
 jenkins_plugin 'buildgraph-view' do
   notifies :restart, 'service[jenkins]', :delayed
 end
+jenkins_plugin 'clover' do
+  notifies :restart, 'service[jenkins]', :delayed
+end
 

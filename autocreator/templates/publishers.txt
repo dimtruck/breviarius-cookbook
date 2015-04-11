@@ -8,4 +8,5 @@
 <%include file="publishers/aggregatedTestResults.txt"/>
 <%include file="publishers/buildTrigger.txt"/>
 <%include file="publishers/gatlingPublisher.txt"/>
+<%include file="publishers/cloverCoverage.txt"/>
 </publishers>

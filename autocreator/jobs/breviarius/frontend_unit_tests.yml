@@ -30,3 +30,4 @@ junitArchiver:
   testResults: "**/results.xml"
   keepLongStdio: False
   healthScaleFactor: "1.0"
+cloverCoverage: True
